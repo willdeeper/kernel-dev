@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "package/linux/"
+		},
+		{
+			"path": "package/buildroot"
+		},
+		{
+			"path": "."
+		},
+	],
+	"settings": {}
+}
