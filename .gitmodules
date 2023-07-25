@@ -2,3 +2,7 @@
 	path = packages/buildroot
 	url = https://github.com/iamwwc/buildroot
 	branch = submodule
+[submodule "linux"]
+	path = packages/linux
+	url = https://github.com/iamwwc/linux
+	branch = master
