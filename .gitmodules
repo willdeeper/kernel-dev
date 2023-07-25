@@ -1,0 +1,4 @@
+[submodule "buildroot"]
+	path = package/buildroot
+	url = https://github.com/iamwwc/buildroot
+	branch = submodule
