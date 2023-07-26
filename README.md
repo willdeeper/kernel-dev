@@ -2,6 +2,19 @@
 
 一站式内核开发调试工具链
 
+# 开发流程
+
+以x86架构为例
+
+1. buildroot/
+   1. make weichao_x86_defconfig
+   2. make menuconfig
+   3. make -j8
+2. linux/
+   1. make menuconfig
+   2. make -j8
+   3. 经常运行`make linux-update-defconfig`: 将.config存放到buildroot/board/weichao/<arch>/linux.config
+
 # 编译内核
 
 buildroot用rsync将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改，make 并不会同步最新的代码
