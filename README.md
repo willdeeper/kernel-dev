@@ -10,7 +10,8 @@
    1. make weichao_x86_defconfig
    2. make menuconfig
    3. make -j8
-2. linux/
+   4. 将 .config 保存到`weichao/x86/.config`: make savedefconfig
+2. linux/: 进行linux开发时
    1. make menuconfig
    2. make -j8
    3. 经常运行`make linux-update-defconfig`: 将.config存放到buildroot/board/weichao/<arch>/linux.config
