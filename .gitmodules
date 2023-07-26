@@ -2,7 +2,9 @@
 	path = packages/buildroot
 	url = https://github.com/iamwwc/buildroot
 	branch = submodule
+	ignore = dirty
 [submodule "linux"]
 	path = packages/linux
 	url = https://github.com/iamwwc/linux
 	branch = master
+	ignore = dirty
