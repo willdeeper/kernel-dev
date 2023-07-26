@@ -14,7 +14,8 @@
 2. linux/: 进行linux开发时
    1. make menuconfig
    2. make -j8
-   3. 经常运行`make linux-update-defconfig`: 将.config存放到buildroot/board/weichao/<arch>/linux.config
+   3. 去到buildroot/：make linux-rebuild (加上第二步一共编译两次kernel)
+   4. 经常运行`make linux-update-config`: 将linux/.config存放到buildroot/board/weichao/<arch>/linux.config
 
 # 编译内核
 
