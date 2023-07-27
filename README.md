@@ -8,16 +8,22 @@
 ## 初始化
 ```bash
 # 初始化 linux
-cd packages/linux
+cd linux
 make weichao_x86_64_defconfig
-make menuconfig
-make -j8
+
+# 如果需要
+# make menuconfig
+
+make -j$(nproc)
 
 # 初始化buildroot
 cd ../buildroot
 make weichao_x86_defconfig
-make menuconfig
-make
+
+# 如果需要
+# make menuconfig
+
+make -j$(nproc)
 ```
 ## 开发循环
 
