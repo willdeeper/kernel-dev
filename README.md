@@ -14,7 +14,7 @@
 2. linux/: 进行linux开发时
    1. make menuconfig
    2. make -j8 或 make CC=clang -j8
-   3. 去到buildroot/：`make linux-rebuild/make CC=clang linux-rebuild` (加上第二步一共编译两次kernel)
+   3. 去到buildroot/：`make linux-rebuild/make CC=clang linux-rebuild` (加上第二步一共编译两次kernel，幸好内核开发文件变动不频繁，所以linux/ 有compile_commands.json 后不需要经常编译)
    4. 经常运行`make linux-update-config`: 将linux/.config存放到buildroot/board/weichao/<arch>/linux.config
 
 # 编译内核
@@ -67,3 +67,12 @@ ssh连接
 ```bash
 ssh root@127.0.0.1 -p 5555 
 ```
+## FAQ
+### 修改 linux的.config
+
+linux/.config只用于开发，最后调试用的.config在 `buildroot/output/build/linux-custom/.config`
+
+修改开发.config: linux/ 下 `make menuconfig`
+修改编译调试的.config: buildroot下 `make linux-menuconfig`
+
+注意: `make linux-update-config`复制的是 linux-custom/.config，所以在 `linux/.config` 的修改并不会影响 `board/weichao/<arch>/linux.config`
