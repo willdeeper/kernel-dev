@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // 需要安装native debug插件
+            "name": "BR-GDB-Kernel-Debug",
+            "type": "gdb",
+            "request": "attach",
+            "debugger_args": [],
+            "cwd": "${workspaceFolder}/packages/linux",
+
+            // if you want to connect at entry point (requires remote program to start paused)
+            // "stopAtEntry": true,
+            // "stopAtConnect": true,
+            "executable": "../buildroot/output/build/linux-custom/vmlinux",
+            "target": ":1234",
+            "preLaunchTask": "start qemu",
+            "postDebugTask": "stop qemu",
+            "remote": true
+        },
+        {
+            "name": "BR-LLDB-Kernel-Debug",
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "start qemu",
+            "postDebugTask": "stop qemu",
+            "args": ["packages/buildroot/output/build/linux-custom/vmlinux"],
+            "program": "packages/buildroot/output/build/linux-custom/vmlinux", // for loading symbols from running program
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false
+        }
+    ]
+}

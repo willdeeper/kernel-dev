@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "stop qemu",
+            "type": "shell",
+            "command": "pkill qemu-system-x86_64 -f",
+            "problemMatcher": []
+        },
+        {
+            "label": "start qemu",
+            "type": "process",
+            "isBackground": true,
+            "command": "qemu-system-x86_64",
+            "args": [
+                "--kernel",
+                "./packages/buildroot/output/images/bzImage",
+                "-initrd",
+                "./packages/buildroot/output/images/rootfs.cpio",
+                "-device",
+                "e1000,netdev=eth0",
+                "-netdev",
+                "user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9",
+                "-append",
+                "nokaslr console=ttyS0",
+                "-S",
+                "-nographic",
+                "-gdb",
+                "tcp::1234",
+                "-virtfs",
+                "local,path=/,security_model=none,mount_tag=guestroot"
+            ]
+        }
+    ]
+}
