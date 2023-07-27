@@ -11,7 +11,7 @@
             "type": "gdb",
             "request": "attach",
             "debugger_args": [],
-            "cwd": "${workspaceFolder}/packages/linux",
+            "cwd": "${workspaceFolder}/linux",
 
             // if you want to connect at entry point (requires remote program to start paused)
             // "stopAtEntry": true,
@@ -28,8 +28,8 @@
             "request": "launch",
             "preLaunchTask": "start qemu",
             "postDebugTask": "stop qemu",
-            "args": ["packages/buildroot/output/build/linux-custom/vmlinux"],
-            "program": "packages/buildroot/output/build/linux-custom/vmlinux", // for loading symbols from running program
+            "args": ["buildroot/output/build/linux-custom/vmlinux"],
+            "program": "buildroot/output/build/linux-custom/vmlinux", // for loading symbols from running program
             "cwd": "${workspaceFolder}",
             "stopOnEntry": false
         }

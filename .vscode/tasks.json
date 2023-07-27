@@ -17,9 +17,9 @@
             "command": "qemu-system-x86_64",
             "args": [
                 "--kernel",
-                "./packages/buildroot/output/images/bzImage",
+                "./buildroot/output/images/bzImage",
                 "-initrd",
-                "./packages/buildroot/output/images/rootfs.cpio",
+                "./buildroot/output/images/rootfs.cpio",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
