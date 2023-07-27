@@ -5,17 +5,31 @@
 # 开发流程
 
 以x86架构为例
+## 初始化
+```bash
+# 初始化 linux
+cd packages/linux
+make weichao_x86_64_defconfig
+make menuconfig
+make -j8
 
-1. buildroot/
-   1. make weichao_x86_defconfig
-   2. make menuconfig
-   3. make -j8
-   4. 将 .config 保存到`weichao/x86/.config`: make savedefconfig
-2. linux/: 进行linux开发时
-   1. make menuconfig
-   2. make -j8 或 make CC=clang -j8
-   3. 去到buildroot/：`make linux-rebuild/make CC=clang linux-rebuild` (加上第二步一共编译两次kernel，幸好内核开发文件变动不频繁，所以linux/ 有compile_commands.json 后不需要经常编译)
-   4. 经常运行`make linux-update-config`: 将linux/.config存放到buildroot/board/weichao/<arch>/linux.config
+# 初始化buildroot
+cd ../buildroot
+make weichao_x86_defconfig
+make menuconfig
+make
+```
+## 开发循环
+
+### linux/
+1. make menuconfig
+2. make -j8
+3. 
+4. 如果长期使用，将 `.config` 保存到 `arch/x86/configs/weichao_x86_64_defconfig`
+## buildroot/
+1. make menuconfig
+2. make savedefconfig
+3. `make` or `make linux-rebuild` (加上第二步一共编译两次kernel，幸好内核开发文件变动不频繁，所以linux/ 有compile_commands.json 后不需要经常编译)
 
 # 编译内核
 
