@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
+            
             // 需要安装native debug插件
             "name": "BR-GDB-Kernel-Debug",
             "type": "gdb",
@@ -19,7 +20,7 @@
             "target": ":1234",
             "preLaunchTask": "start qemu",
             "postDebugTask": "stop qemu",
-            "remote": true
+            "remote": true,
         },
         {
             "name": "BR-LLDB-Kernel-Debug",

@@ -76,3 +76,13 @@ linux/.config只用于开发，最后调试用的.config在 `buildroot/output/bu
 修改编译调试的.config: buildroot下 `make linux-menuconfig`
 
 注意: `make linux-update-config`复制的是 linux-custom/.config，所以在 `linux/.config` 的修改并不会影响 `board/weichao/<arch>/linux.config`
+
+### Gdb breakpoing set error Cannot execute this command while the target is running.
+
+https://marketplace.visualstudio.com/items?itemName=webfreak.debug#:~:text=Adding%20breakpoints%20while%20the%20program%20runs%20will%20not%20interrupt%20it%20immediately.%20For%20that%20you%20need%20to%20pause%20%26%20resume%20the%20program%20once%20first.%20However%20adding%20breakpoints%20while%20its%20paused%20works%20as%20expected.
+
+Adding breakpoints while the program runs will not interrupt it immediately. For that you need to pause & resume the program once first. However adding breakpoints while its paused works as expected.
+
+1. 先点vscode debug的pause
+2. 设置断点
+3. 再点continue
