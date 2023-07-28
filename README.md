@@ -65,21 +65,21 @@ make all
 3. 启动qemu
 
 ```bash
-qemu-system-x86_64 --kernel ./packages/buildroot/output/images/bzImage -initrd ./packages/buildroot/output/images/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
+qemu-system-x86_64 --kernel ./buildroot/output/images/bzImage -initrd ./buildroot/output/images/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
 
 ```
 
 gdb attach
 
 ```bash
-gdb packages/buildroot/output/build/linux-custom/vmlinux
+gdb buildroot/output/build/linux-custom/vmlinux
 target remote localhost:1234
 ```
 
 或者一行
 
 ```
-gdb packages/buildroot/output/build/linux-custom/vmlinux --ex="target remote localhost:1234"
+gdb buildroot/output/build/linux-custom/vmlinux --ex="target remote localhost:1234"
 ```
 
 ssh连接
