@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "linux"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "buildroot"
+		},
+	],
+	"settings": {
+		"files.associations": {
+			"nospec.h": "c",
+			"sock.h": "c"
+		}
+	}
+}
