@@ -5,7 +5,9 @@
 # 开发流程
 
 以x86架构为例
+
 ## 初始化
+
 ```bash
 # 初始化 linux
 cd linux
@@ -25,14 +27,18 @@ make weichao_x86_defconfig
 
 make -j$(nproc)
 ```
+
 ## 开发循环
 
 ### linux/
+
 1. make menuconfig
-2. make -j8
-3. 
+2. make -j$(nproc)
+3.
 4. 如果长期使用，将 `.config` 保存到 `arch/x86/configs/weichao_x86_64_defconfig`
+
 ## buildroot/
+
 1. make menuconfig
 2. make savedefconfig
 3. `make` or `make linux-rebuild` (加上第二步一共编译两次kernel，幸好内核开发文件变动不频繁，所以linux/ 有compile_commands.json 后不需要经常编译)
@@ -87,7 +93,9 @@ ssh连接
 ```bash
 ssh root@127.0.0.1 -p 5555 
 ```
+
 ## FAQ
+
 ### 修改 linux的.config
 
 linux/.config只用于开发，最后调试用的.config在 `buildroot/output/build/linux-custom/.config`
@@ -97,9 +105,9 @@ linux/.config只用于开发，最后调试用的.config在 `buildroot/output/bu
 
 注意: `make linux-update-config`复制的是 linux-custom/.config，所以在 `linux/.config` 的修改并不会影响 `board/weichao/<arch>/linux.config`
 
-### Gdb breakpoing set error Cannot execute this command while the target is running.
+### Gdb breakpoing set error Cannot execute this command while the target is running
 
-https://marketplace.visualstudio.com/items?itemName=webfreak.debug#:~:text=Adding%20breakpoints%20while%20the%20program%20runs%20will%20not%20interrupt%20it%20immediately.%20For%20that%20you%20need%20to%20pause%20%26%20resume%20the%20program%20once%20first.%20However%20adding%20breakpoints%20while%20its%20paused%20works%20as%20expected.
+<https://marketplace.visualstudio.com/items?itemName=webfreak.debug#:~:text=Adding%20breakpoints%20while%20the%20program%20runs%20will%20not%20interrupt%20it%20immediately.%20For%20that%20you%20need%20to%20pause%20%26%20resume%20the%20program%20once%20first.%20However%20adding%20breakpoints%20while%20its%20paused%20works%20as%20expected>.
 
 Adding breakpoints while the program runs will not interrupt it immediately. For that you need to pause & resume the program once first. However adding breakpoints while its paused works as expected.
 
