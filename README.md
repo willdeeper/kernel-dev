@@ -35,7 +35,7 @@ make -j$(nproc)
 1. make menuconfig
 2. make -j$(nproc)
 3.
-4. 如果长期使用，将 `.config` 保存到 `arch/x86/configs/weichao_x86_64_defconfig`
+4. 如果保存`linux/.config`，在buildroot/运行 `make linux-update-defconfig`
 
 ## buildroot/
 
