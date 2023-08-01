@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "nospec.h": "c",
+        "sock.h": "c"
+    }
+}
