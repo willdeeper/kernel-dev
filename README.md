@@ -6,6 +6,8 @@
 
 以x86架构为例
 
+**vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
+
 ## 初始化
 
 ```bash
@@ -16,7 +18,7 @@ make weichao_x86_64_defconfig
 # 如果需要
 # make menuconfig
 
-make -j$(nproc)
+make CC=clang -j$(nproc)
 
 # 初始化buildroot
 cd ../buildroot
@@ -45,7 +47,7 @@ make -j$(nproc)
 
 # 编译内核
 
-buildroot用rsync将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改，make 并不会同步最新的代码
+buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改，make 并不会同步最新的代码
 
 每个包都有 `package-<rebuild|reconfigure>`的形式
 
