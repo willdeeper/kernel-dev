@@ -17,7 +17,7 @@
             "command": "qemu-system-x86_64",
             "args": [
                 "--kernel",
-                "./buildroot/output/images/bzImage",
+                "./linux/arch/x86/boot/bzImage",
                 "-initrd",
                 "./buildroot/output/images/rootfs.cpio",
                 "-device",

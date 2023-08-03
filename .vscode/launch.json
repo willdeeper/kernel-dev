@@ -28,10 +28,10 @@
             "preLaunchTask": "start qemu",
             "postDebugTask": "stop qemu",
             "targetCreateCommands": [
-                "file ${workspaceFolder}/buildroot/output/build/linux-custom/vmlinux"
+                "file ${workspaceFolder}/linux/vmlinux"
             ],
             "processCreateCommands": ["gdb-remote localhost:1234"],
-            "program": "${workspaceFolder}/buildroot/output/build/linux-custom/vmlinux", // for loading symbols from running program
+            "program": "${workspaceFolder}/linux/vmlinux", // for loading symbols from running program
             "stopOnEntry": false
         }
     ]
