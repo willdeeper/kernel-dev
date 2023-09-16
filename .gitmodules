@@ -1,10 +1,10 @@
 [submodule "buildroot"]
 	path = buildroot
-	url = https://github.com/iamwwc/buildroot
+	url = git@github.com:iamwwc/buildroot.git
 	branch = master
 	ignore = dirty
 [submodule "linux"]
 	path = linux
-	url = https://github.com/iamwwc/linux
+	url = git@github.com:iamwwc/linux.git
 	branch = master
 	ignore = dirty
