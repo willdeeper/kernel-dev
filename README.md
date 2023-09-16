@@ -4,11 +4,11 @@
 
 # 开发流程
 
-以x86架构为例
-
 **vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
 
-## 初始化
+以x86架构为例
+
+## x86初始化
 
 ```bash
 # 初始化 linux
@@ -28,6 +28,14 @@ make weichao_x86_defconfig
 # make menuconfig
 
 make -j$(nproc)
+```
+
+## arm 初始化
+
+在x86编译arm的内核，需要 `ARCH=arm`
+
+```bash
+make ARCH=arm sunxi_deconfig
 ```
 
 ## 开发循环
