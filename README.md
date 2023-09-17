@@ -10,6 +10,12 @@ clean之后再编译报错就没了
 
 总之，计算机是完全人造的，我们总是要依赖别人的代码，出错很正常，而且有些错误很难搞明白，死磕就是浪费时间，能绕过，走大家都走的路，实现你的目标才最重要。
 
+proxychains make -j$(nproc) 会导致getaddrinfo bug
+
+https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
+
+配透明代理保险些
+
 # 开发流程
 
 **vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
