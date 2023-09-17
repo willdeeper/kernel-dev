@@ -1,4 +1,4 @@
-# kernel-dev仓库
+## kernel-dev仓库
 
 一站式内核开发调试工具链
 
@@ -16,7 +16,7 @@ https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
 
 配透明代理保险些
 
-# 开发流程
+## 开发流程
 
 **vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
 
@@ -24,7 +24,7 @@ https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
 
 不加在编译时总发现奇奇怪怪的问题
 
-## x86初始化
+### x86初始化
 
 ```bash
 # 初始化 linux
@@ -46,7 +46,7 @@ make weichao_x86_defconfig
 make -j$(nproc)
 ```
 
-## arm 初始化
+### arm 初始化
 
 在x86编译arm的内核，需要 `ARCH=arm`
 
