@@ -6,7 +6,9 @@
 
 **vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
 
-以x86架构为例
+**在X86编译其他arch的kernel时，还是都加上 ARCH=xxx，比如x86编译arm，加`ARCH=arm`**
+
+不加在编译时总发现奇奇怪怪的问题
 
 ## x86初始化
 
@@ -36,6 +38,7 @@ make -j$(nproc)
 
 ```bash
 make ARCH=arm sunxi_deconfig
+make ARCH=arm -j$(nproc)
 ```
 
 ## 开发循环
