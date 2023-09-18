@@ -4,11 +4,11 @@
             "path": "linux"
         },
         {
-            "path": "."
+            "path": "buildroot"
         },
         {
-            "path": "buildroot"
-        }
+            "path": "."
+        },
     ],
     "settings": {
         "files.associations": {
