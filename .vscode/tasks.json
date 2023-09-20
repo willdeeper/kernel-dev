@@ -12,8 +12,13 @@
         {
             "label": "start qemu",
             "type": "process",
+            // presentation 和 isBackground:true 配合
+            // 可以关掉 
+            // the task cannot be tracked. Make sure to have a problem matcher defined 弹框
+            "presentation": {
+                "reveal": "never"
+            },
             "isBackground": true,
-            "problemMatcher": [],
             "command": "qemu-system-x86_64",
             "args": [
                 "--kernel",
