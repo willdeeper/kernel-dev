@@ -7,6 +7,9 @@
             "path": "buildroot"
         },
         {
+            "path": "u-boot/"
+        },
+        {
             "path": "."
         },
     ],
