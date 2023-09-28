@@ -24,6 +24,12 @@ https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
 
 不加在编译时总发现奇奇怪怪的问题
 
+### presetup
+
+```bash
+apt install make gcc flex bison clang libelf-dev bc libssl-dev -y
+```
+
 ### x86初始化
 
 ```bash
