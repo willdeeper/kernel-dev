@@ -67,8 +67,17 @@ make ARCH=arm -j$(nproc)
 
 1. make menuconfig
 2. make -j$(nproc)
-3.
-4. 如果保存`linux/.config`，在buildroot/运行 `make linux-update-defconfig`
+3. 保存 `linux/.config`:
+
+buildroot/ `make linux-update-defconfig`
+
+或
+linux/
+
+```bash
+make savedefconfig 
+cp defconfig arch/x86/configs/weichao_x86_64_defconfig
+```
 
 ## buildroot/
 
