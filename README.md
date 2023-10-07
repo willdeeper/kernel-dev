@@ -29,7 +29,7 @@ https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
 ```bash
 apt install make gcc flex bison clang libelf-dev bc libssl-dev -y
 git submodule update --init --remote --recursive
-git submodule foreach git checkout master
+git submodule foreach "git branch -D master & git checkout -b master origin/master"
 ```
 
 ### x86初始化
