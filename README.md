@@ -12,7 +12,7 @@ clean之后再编译报错就没了
 
 proxychains make -j$(nproc) 会导致getaddrinfo bug
 
-https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500
+<https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500>
 
 配透明代理保险些
 
@@ -158,3 +158,9 @@ Adding breakpoints while the program runs will not interrupt it immediately. For
 1. 先点vscode debug的pause
 2. 设置断点
 3. 再点continue
+
+### Windows 启动qemu
+
+```txt
+.\qemu-system-x86_64.exe --kernel C:\Users\qaq13\Desktop\bzImage -initrd C:\Users/qaq13/Desktop/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234
+```
