@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "BR-LLDB-Kernel-Debug",
+            "type": "lldb",
+            "request": "attach",
+            "preLaunchTask": "start qemu",
+            "postDebugTask": "stop qemu",
+            "targetCreateCommands": [
+                "file ${workspaceFolder}/linux/vmlinux"
+            ],
+            "processCreateCommands": ["gdb-remote localhost:1234"],
+            "program": "${workspaceFolder}/linux/vmlinux", // for loading symbols from running program
+            "stopOnEntry": false
+        },
+        {
             // 需要安装native debug插件
             "name": "BR-GDB-Kernel-Debug",
             "type": "gdb",
@@ -21,18 +34,5 @@
             "postDebugTask": "stop qemu",
             "remote": true
         },
-        {
-            "name": "BR-LLDB-Kernel-Debug",
-            "type": "lldb",
-            "request": "attach",
-            "preLaunchTask": "start qemu",
-            "postDebugTask": "stop qemu",
-            "targetCreateCommands": [
-                "file ${workspaceFolder}/linux/vmlinux"
-            ],
-            "processCreateCommands": ["gdb-remote localhost:1234"],
-            "program": "${workspaceFolder}/linux/vmlinux", // for loading symbols from running program
-            "stopOnEntry": false
-        }
     ]
 }
