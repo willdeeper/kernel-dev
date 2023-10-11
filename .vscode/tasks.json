@@ -22,9 +22,9 @@
             "command": "qemu-system-x86_64",
             "args": [
                 "--kernel",
-                "./linux/arch/x86/boot/bzImage",
+                "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
                 "-initrd",
-                "./buildroot/output/images/rootfs.cpio",
+                "${workspaceFolder}/buildroot/output/images/rootfs.cpio",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
@@ -36,7 +36,11 @@
                 "-gdb",
                 "tcp::1234",
                 "-virtfs",
-                "local,path=/,security_model=none,mount_tag=guestroot"
+                "local,path=/,security_model=none,mount_tag=guestroot",
+                // 调试 mt7921 驱动
+                // "-usb",
+                // "-device",
+                // "usb-host,vendorid=0x0e8d,productid=0x7961"
             ]
         }
     ]

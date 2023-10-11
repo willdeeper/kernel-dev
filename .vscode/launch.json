@@ -28,7 +28,7 @@
             // if you want to connect at entry point (requires remote program to start paused)
             // "stopAtEntry": true,
             // "stopAtConnect": true,
-            "executable": "../buildroot/output/build/linux-custom/vmlinux",
+            "executable": "${workspaceFolder}/linux/vmlinux",
             "target": ":1234",
             "preLaunchTask": "start qemu",
             "postDebugTask": "stop qemu",

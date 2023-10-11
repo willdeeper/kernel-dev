@@ -84,7 +84,6 @@ buildroot/
 
 `make linux-update-defconfig`
 
-
 ## buildroot/
 
 1. make menuconfig
@@ -169,3 +168,9 @@ Adding breakpoints while the program runs will not interrupt it immediately. For
 ```txt
 .\qemu-system-x86_64.exe --kernel C:\Users\qaq13\Desktop\bzImage -initrd C:\Users/qaq13/Desktop/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234
 ```
+
+### 为什么需要编译两次内核？
+
+linux/ 和 buildroot/ 都需要编译一次内核，buildroot的编译会复用linux/的编译缓存进行少量编译
+
+buildroot/ 编译依赖 linux-header，而 buildroot 默认的linux-header和 linux/ 的版本可能不一致，为避免不必要的麻烦，buildroot总是使用和linux/版本一致的linux-header编译，所以buildroot需要使用 linux/ 代码重新编译一次
