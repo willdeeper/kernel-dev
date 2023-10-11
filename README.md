@@ -18,7 +18,7 @@ proxychains make -j$(nproc) 会导致getaddrinfo bug
 
 ## 开发流程
 
-**vscode C++ 插件难用，建议编译kernel时`CC=clang`，配合vscode clangd使用**
+**vscode C++ 插件难用，建议编译kernel加`CC=clang`，配合vscode clangd**
 
 **在X86编译其他arch的kernel时，还是都加上 ARCH=xxx，比如x86编译arm，加`ARCH=arm`**
 
@@ -89,22 +89,23 @@ cp defconfig arch/x86/configs/weichao_x86_64_defconfig
 
 # 编译内核
 
-buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改，make 并不会同步最新的代码
+buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改 make 并不会同步最新的代码
 
 每个包都有 `package-<rebuild|reconfigure>`的形式
 
 1. 重新编译运行linux
 
-```bash
-# 只会在target/生成bzImage
-# 如果需要rootfs，需要全量编译 make all
-# 另外此命令会报错 comm files-list.before: No such file or directory
-# https://yhbt.net/lore/all/20201105221643.707bba76@windsurf.home/T/
-# 但还是会生成bzImage，没发现什么印象，现阶段忽略就好
-make linux-rebuild
-```
+    ```bash
+    # 只会在target/生成bzImage
+    # 如果需要rootfs，需要全量编译 make all
+    # 另外此命令会报错 comm files-list.before: No such file or directory
+    # https://yhbt.net/lore/all/20201105221643.707bba76@windsurf.home/T/
+    # 但还是会生成bzImage，没发现什么印象，现阶段忽略就好
+    make linux-rebuild
+    ```
 
-根据我的测试，rsync同步后还是会有编译缓存。在linux/下开发编译之后 `make linux-rebuild`会重新编译linux/编译的内容，而不是全量编译
+    根据测试，rsync同步后还会有编译缓存。在 linux/ 开发编译之后 `make linux-rebuild`会重新编译 `linux/` 修改的内容，而不是全量编译
+
 2. 编译生成rootfs
 
 ```bash
@@ -114,29 +115,29 @@ make all
 
 3. 启动qemu
 
-```bash
-qemu-system-x86_64 --kernel ./buildroot/output/images/bzImage -initrd ./buildroot/output/images/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
+    ```bash
+    qemu-system-x86_64 --kernel ./buildroot/output/images/bzImage -initrd ./buildroot/output/images/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
 
-```
+    ```
 
-gdb attach
+    gdb attach
 
-```bash
-gdb buildroot/output/build/linux-custom/vmlinux
-target remote localhost:1234
-```
+    ```bash
+    gdb buildroot/output/build/linux-custom/vmlinux
+    target remote localhost:1234
+    ```
 
-或者一行
+    或者一行
 
-```
-gdb buildroot/output/build/linux-custom/vmlinux --ex="target remote localhost:1234"
-```
+    ```
+    gdb buildroot/output/build/linux-custom/vmlinux --ex="target remote localhost:1234"
+    ```
 
-ssh连接
+    ssh连接
 
-```bash
-ssh root@127.0.0.1 -p 5555 
-```
+    ```bash
+    ssh root@127.0.0.1 -p 5555 
+    ```
 
 ## FAQ
 
