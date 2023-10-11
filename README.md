@@ -46,17 +46,19 @@ make CC=clang -j$(nproc)
 
 # 初始化buildroot
 cd ../buildroot
-make weichao_x86_defconfig
+make weichao_x86_64_defconfig
 
 # 如果需要
 # make menuconfig
 
-make -j$(nproc)
+make
 ```
 
 ### arm 初始化
 
-在x86编译arm的内核，需要 `ARCH=arm`
+在 x86 编译arm的内核，需要 `ARCH=arm`
+
+linux/
 
 ```bash
 make ARCH=arm sunxi_deconfig
@@ -67,19 +69,21 @@ make ARCH=arm -j$(nproc)
 
 ### linux/
 
-1. make menuconfig
-2. make -j$(nproc)
+1. make CC=clang menuconfig
+2. make CC=clang -j$(nproc)
 3. 保存 `linux/.config`:
 
-buildroot/ `make linux-update-defconfig`
+    ```bash
+    make savedefconfig 
+    cp defconfig arch/x86/configs/weichao_x86_64_defconfig
+    ```
 
-或
-linux/
+4. 修改代码，跳转 2
 
-```bash
-make savedefconfig 
-cp defconfig arch/x86/configs/weichao_x86_64_defconfig
-```
+buildroot/
+
+`make linux-update-defconfig`
+
 
 ## buildroot/
 
@@ -89,7 +93,7 @@ cp defconfig arch/x86/configs/weichao_x86_64_defconfig
 
 # 编译内核
 
-buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。你在linux/修改 make 并不会同步最新的代码
+buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。在 linux/ 修改后 make 并不会复用上次的编译缓存
 
 每个包都有 `package-<rebuild|reconfigure>`的形式
 
@@ -108,10 +112,10 @@ buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom
 
 2. 编译生成rootfs
 
-```bash
-# https://buildroot.org/downloads/manual/manual.html#:~:text=8.3.-,Understanding%20how%20to%20rebuild%20packages,-One%20of%20the\
-make all
-```
+    ```bash
+    # https://buildroot.org/downloads/manual/manual.html#:~:text=8.3.-,Understanding%20how%20to%20rebuild%20packages,-One%20of%20the\
+    make all
+    ```
 
 3. 启动qemu
 
@@ -129,7 +133,7 @@ make all
 
     或者一行
 
-    ```
+    ```bash
     gdb buildroot/output/build/linux-custom/vmlinux --ex="target remote localhost:1234"
     ```
 
