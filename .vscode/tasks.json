@@ -7,7 +7,15 @@
             "label": "stop qemu",
             "type": "shell",
             "command": "pkill qemu-system-x86_64 -f",
-            "problemMatcher": []
+            "problemMatcher": [],
+            // https://stackoverflow.com/questions/47946868/how-to-get-rid-of-terminal-will-be-reused-by-tasks-press-any-key-to-close-it
+            // 自动关闭task
+            // 不显示 Terminal will be reused by tasks, press any key to close it
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "close": true
+            }
         },
         {
             "label": "start qemu",
@@ -15,8 +23,14 @@
             // presentation 和 isBackground:true 配合
             // 可以关掉 
             // the task cannot be tracked. Make sure to have a problem matcher defined 弹框
+
+            // https://stackoverflow.com/questions/47946868/how-to-get-rid-of-terminal-will-be-reused-by-tasks-press-any-key-to-close-it
+            // 自动关闭task
+            // 不显示 Terminal will be reused by tasks, press any key to close it
             "presentation": {
-                "reveal": "never"
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "close": true
             },
             "isBackground": true,
             "command": "qemu-system-x86_64",
