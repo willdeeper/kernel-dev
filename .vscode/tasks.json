@@ -39,7 +39,7 @@
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
                 "-initrd",
                 "${workspaceFolder}/buildroot/output/images/rootfs.cpio",
-                "-hdd",
+                "-hda",
                 "${workspaceFolder}/buildroot/output/images/rootfs.img",
                 "-device",
                 "e1000,netdev=eth0",
