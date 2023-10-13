@@ -16,6 +16,11 @@ proxychains make -j$(nproc) 会导致getaddrinfo bug
 
 配透明代理保险些
 
+### TODO
+
+[] 使用 ext4 rootfs文件系统
+[] kernel boot时执行脚本，自动化配置wifi 或者其他的环境
+
 ## 开发流程
 
 **vscode C++ 插件难用，建议编译kernel加`CC=clang`，配合vscode clangd**
