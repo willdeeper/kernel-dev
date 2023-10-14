@@ -42,7 +42,7 @@ git submodule foreach "git branch -D master & git checkout -b master origin/mast
 ```bash
 # 初始化 linux
 cd linux
-make weichao_x86_64_defconfig
+make CC=clang weichao_x86_64_defconfig
 
 # 如果需要
 # make menuconfig
@@ -179,3 +179,27 @@ Adding breakpoints while the program runs will not interrupt it immediately. For
 linux/ 和 buildroot/ 都需要编译一次内核，buildroot的编译会复用linux/的编译缓存进行少量编译
 
 buildroot/ 编译依赖 linux-header，而 buildroot 默认的linux-header和 linux/ 的版本可能不一致，为避免不必要的麻烦，buildroot总是使用和linux/版本一致的linux-header编译，所以buildroot需要使用 linux/ 代码重新编译一次
+
+### linux make 弹输入提示符
+
+运行
+
+```bash
+make weichao_x86_64_defconfig
+# 这里可能会出现kbuild的提示，是否开启关闭某些选项
+# 是因为上面的 make weichao_x86_64_defconfig 并没有加 CC=clang
+# 而下面却加了 CC=clang
+make CC=clang -j$(nproc)
+```
+
+解决办法是都加 `CC=clang`
+
+```bash
+make CC=clang weichao_x86_64_defconfig
+# 这里可能会出现kbuild的提示，是否开启关闭某些选项
+# 是因为上面的 make weichao_x86_64_defconfig 并没有加 CC=clang
+# 而下面却加了 CC=clang
+make CC=clang -j$(nproc)
+```
+
+> https://stackoverflow.com/questions/50405217/make-kernel-prompting-for-config-options-even-when-config-is-present
