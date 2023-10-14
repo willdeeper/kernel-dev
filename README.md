@@ -10,7 +10,7 @@ clean之后再编译报错就没了
 
 总之，计算机是完全人造的，我们总是要依赖别人的代码，出错很正常，而且有些错误很难搞明白，死磕就是浪费时间，能绕过，走大家都走的路，实现你的目标才最重要。
 
-proxychains make -j$(nproc) 会导致getaddrinfo bug
+`proxychains make -j$(nproc)` 会导致 getaddrinfo bug
 
 <https://github.com/pyenv/pyenv/issues/430#issuecomment-142270500>
 
@@ -149,7 +149,7 @@ buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom
 
 ## FAQ
 
-### 修改 linux的.config
+### 修改 linux 的.config
 
 linux/.config只用于开发，最后调试用的.config在 `buildroot/output/build/linux-custom/.config`
 
