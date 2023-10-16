@@ -203,3 +203,9 @@ make CC=clang -j$(nproc)
 ```
 
 > https://stackoverflow.com/questions/50405217/make-kernel-prompting-for-config-options-even-when-config-is-present
+
+
+文件系统写100M，但实际物理存储只有30M
+
+其实不是mount的问题，而是你所在的shell哪怕挂载完，还是现实原来的大小，因为init用的就是原来的大小！
+

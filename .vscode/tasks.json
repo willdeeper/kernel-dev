@@ -21,7 +21,7 @@
             "label": "start qemu",
             "type": "process",
             // presentation 和 isBackground:true 配合
-            // 可以关掉 
+            // 可以关掉
             // the task cannot be tracked. Make sure to have a problem matcher defined 弹框
 
             // https://stackoverflow.com/questions/47946868/how-to-get-rid-of-terminal-will-be-reused-by-tasks-press-any-key-to-close-it
@@ -39,8 +39,8 @@
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
                 "-initrd",
                 "${workspaceFolder}/buildroot/output/images/rootfs.cpio",
-                "-hda",
-                "${workspaceFolder}/buildroot/output/images/rootfs.img",
+                "-drive",
+                "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
