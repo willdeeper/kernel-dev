@@ -46,7 +46,8 @@
                 "-netdev",
                 "user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9",
                 "-append",
-                "nokaslr console=ttyS0",
+                // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
+                "nokaslr console=ttyS0 debug",
                 "-S",
                 "-nographic",
                 "-gdb",
