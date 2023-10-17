@@ -35,10 +35,19 @@
             "isBackground": true,
             "command": "qemu-system-x86_64",
             "args": [
+                // 默认是128MB
+                // 如果initrd过大，会导致Initramfs unpacking failed
+                // 改用更大的startup memory
+                // https://wiki.archlinux.org/title/QEMU#Installing_the_operating_system
+                "-m",
+                "8G",
+                "-smp",
+                "cpus=4,cores=4",
                 "--kernel",
+                // "${workspaceFolder}/buildroot/output/images/bzImage",
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
                 "-initrd",
-                "${workspaceFolder}/buildroot/output/images/rootfs.cpio",
+                "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
                 "-drive",
                 "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
                 "-device",
@@ -52,12 +61,12 @@
                 "-nographic",
                 "-gdb",
                 "tcp::1234",
-                "-virtfs",
-                "local,path=/,security_model=none,mount_tag=guestroot",
                 // 调试 mt7921 驱动
                 // "-usb",
                 // "-device",
-                // "usb-host,vendorid=0x0e8d,productid=0x7961"
+                // "usb-host,vendorid=0x0e8d,productid=0x7961",
+                "-virtfs",
+                "local,path=/,security_model=none,mount_tag=guestroot"
             ]
         }
     ]
