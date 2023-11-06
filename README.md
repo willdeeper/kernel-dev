@@ -204,7 +204,20 @@ make CC=clang -j$(nproc)
 
 > https://stackoverflow.com/questions/50405217/make-kernel-prompting-for-config-options-even-when-config-is-present
 
-
 文件系统写100M，但实际物理存储只有30M
 
 其实不是mount的问题，而是你所在的shell哪怕挂载完，还是现实原来的大小，因为init用的就是原来的大小！
+
+### tmux split terminal
+
+tmux prefix 默认快捷键 ctrl + b 不 working
+
+折中
+
+在 tmux 里运行命令
+
+tmux split-window 开启两个窗口
+
+#### move between pane
+
+> Alt-arrow
