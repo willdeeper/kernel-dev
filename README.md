@@ -124,7 +124,7 @@ buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom
 3. 启动qemu
 
     ```bash
-    qemu-system-x86_64 --kernel ./buildroot/output/images/bzImage -initrd ./buildroot/output/images/rootfs.cpio -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
+    qemu-system-x86_64 --kernel ./linux/arch/x86_64/boot/bzImage -initrd ./buildroot/output/images/rootfs.cpio -drive file=./buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
 
     ```
 
@@ -208,16 +208,61 @@ make CC=clang -j$(nproc)
 
 其实不是mount的问题，而是你所在的shell哪怕挂载完，还是现实原来的大小，因为init用的就是原来的大小！
 
+### 获取qemu的第二个shell
+
+除了上面tmux的方案，还有其他方案
+
+[qemu会hook我常用的ctrl + a](https://www.qemu.org/docs/master/system/mux-chardev.html)，而且vscode terminal `alt` 不会发送到qemu
+
+所以新方案要求qemu从外部terminal运行，并且非tmux环境（防止快捷键被tmux拦截）
+
+1. 注释 launch.json的 `"preLaunchTask": "start qemu",`
+
+2. 外部terminal运行qemu
+
+    ```bash
+    qemu-system-x86_64 -m 8G -smp cpus=4,cores=4 --kernel ./linux/arch/x86_64/boot/bzImage -initrd ./buildroot/output/images/rootfs.cpio -drive file=./buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk -device e1000,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9  -append "nokaslr console=ttyS0" -S -nographic -gdb tcp::1234 -virtfs local,path=/,security_model=none,mount_tag=guestroot
+    ```
+
+3. qemu kernel shell运行
+
+    ```bash
+    tmux -f /root/.config/tmux/tmux.conf
+    ```
+
+4. split-window
+
+    ```tmux
+    ctrl + a ctrl + a \
+    ```
+
+5. alt + arrow 也可正常使用
+
 ### tmux split terminal
 
 tmux prefix 默认快捷键 ctrl + b 不 working
 
 折中
 
-在 tmux 里运行命令
+运行tmux
 
-tmux split-window 开启两个窗口
+```
+tmux -f /root/.config/tmux/tmux.conf
+```
+
+在 tmux 里运行
+
+`tmux split-window` 开启两个窗口
 
 #### move between pane
 
 > Alt-arrow
+
+### 解决kernel panic
+
+尝试重新编译kernel
+
+```bash
+cd linux
+make CC=clang -j$(nproc)
+```

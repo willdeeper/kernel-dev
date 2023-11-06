@@ -35,10 +35,16 @@
             "isBackground": true,
             "command": "qemu-system-x86_64",
             "args": [
-                // 默认是128MB
+                // 默认是 128MB
                 // 如果initrd过大，会导致Initramfs unpacking failed
                 // 改用更大的startup memory
                 // https://wiki.archlinux.org/title/QEMU#Installing_the_operating_system
+                // 少了-m（内存小）会导致一些奇怪的问题，比如
+                // /bin/sh: error while loading shared libraries: libresolv.so.2: cannot open shared object file: No such file or directory
+                // (但 sh 不应该依赖 resolve.so
+                // 猜测是内存少了，导致unpack error进而找不到so。理由是有报错：Initramfs unpacking failed: write error
+                // 后期要改正，不应该将所有的东西都打包进rootfs.cpio
+                // 非启动相关的文件要挂载新的磁盘
                 "-m",
                 "8G",
                 "-smp",
