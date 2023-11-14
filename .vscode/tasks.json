@@ -52,17 +52,19 @@
                 "--kernel",
                 // "${workspaceFolder}/buildroot/output/images/bzImage",
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
-                "-initrd",
-                "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
+                // "-initrd",
+                // "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
                 "-drive",
                 "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
+                "-append",
+                // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
+                // 如果使用-initrd, root=将不会生效
+                // 只有kernel发现没有initrd可以用时，才会尝试从cmd的root查找对应的root分区挂载到 /
+                "root=/dev/sda console=ttyS0 debug",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
                 "user,id=eth0,hostfwd=tcp::5555-:22,net=192.168.76.0/24,dhcpstart=192.168.76.9",
-                "-append",
-                // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
-                "nokaslr console=ttyS0 debug",
                 "-S",
                 "-nographic",
                 "-gdb",
