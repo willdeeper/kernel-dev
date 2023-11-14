@@ -45,22 +45,20 @@
                 // 猜测是内存少了，导致unpack error进而找不到so。理由是有报错：Initramfs unpacking failed: write error
                 // 后期要改正，不应该将所有的东西都打包进rootfs.cpio
                 // 非启动相关的文件要挂载新的磁盘
-                "-m",
-                "8G",
+                // initrd需要放到内存，所以内存需要足够大
+                // 如果不用initrd，直接挂在ext4的磁盘做rootfs，不需要配置内存
+                // 默认128MB足够
+
+                // "-m",
+                // "8G",
                 "-smp",
                 "cpus=4,cores=4",
                 "--kernel",
-                // "${workspaceFolder}/buildroot/output/images/bzImage",
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
                 // "-initrd",
                 // "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
                 "-drive",
                 "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
-                "-append",
-                // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
-                // 如果使用-initrd, root=将不会生效
-                // 只有kernel发现没有initrd可以用时，才会尝试从cmd的root查找对应的root分区挂载到 /
-                "root=/dev/sda console=ttyS0 debug",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
@@ -69,6 +67,11 @@
                 "-nographic",
                 "-gdb",
                 "tcp::1234",
+                "-append",
+                // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
+                // 如果使用-initrd, root=将不会生效
+                // 只有kernel发现没有initrd可以用时，才会尝试从cmd的root查找对应的root分区挂载到 /
+                "root=/dev/sda console=ttyS0 debug",
                 // 调试 mt7921 驱动
                 // "-usb",
                 // "-device",
