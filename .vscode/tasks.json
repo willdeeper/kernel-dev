@@ -79,6 +79,7 @@
                 "-virtfs",
                 "local,path=/,security_model=none,mount_tag=guestroot"
             ]
-        }
+        },
+        // arm https://github.com/FlorentRevest/linux-kernel-vscode/blob/629f78bd83dd7ada9ecacb532b236a30fa9c7477/tasks.sh#L84
     ]
 }
