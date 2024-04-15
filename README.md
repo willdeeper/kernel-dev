@@ -32,7 +32,7 @@ clean之后再编译报错就没了
 ### presetup
 
 ```bash
-apt install make gcc flex bison clang libelf-dev bc libssl-dev -y
+apt install make gcc flex bison clang libelf-dev bc libssl-dev rsync -y
 git submodule foreach "git checkout HEAD~1 && git branch -D master && git checkout -b master origin/master"
 git submodule update --init --remote --recursive
 git pull
