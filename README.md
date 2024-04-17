@@ -100,7 +100,7 @@ buildroot/
 ## 生成 compile commands
 
 ```bash
-./linux/scripts/clang-tools/gen_compile_commands.py
+bash -c 'cd linux && ./scripts/clang-tools/gen_compile_commands.py'
 ```
 
 # 编译内核
