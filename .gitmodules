@@ -1,11 +1,11 @@
 [submodule "buildroot"]
 	path = buildroot
-	url = git@github.com:taikulawo/buildroot.git
+	url = https://github.com/taikulawo/buildroot
 	branch = master
 	ignore = dirty
 [submodule "linux"]
 	path = linux
-	url = git@github.com:taikulawo/linux.git
+	url = https://github.com/taikulawo/linux
 	branch = master
 	ignore = dirty
 [submodule "u-boot"]
