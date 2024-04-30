@@ -71,7 +71,7 @@
                 // https://wiki.archlinux.org/title/kernel_parameters#Hijacking_cmdline
                 // 如果使用-initrd, root=将不会生效
                 // 只有kernel发现没有initrd可以用时，才会尝试从cmd的root查找对应的root分区挂载到 /
-                "root=/dev/sda console=ttyS0 debug",
+                "root=/dev/sda rw console=ttyS0 debug",
                 // 调试 mt7921 驱动
                 // "-usb",
                 // "-device",
