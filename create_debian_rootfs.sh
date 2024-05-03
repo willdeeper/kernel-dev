@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 set -ex
 FS=/mnt/ext4/
-PASSWD=123456
+
 apt install debootstrap -y
 # create rootfs
 # 1G
