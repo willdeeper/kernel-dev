@@ -55,10 +55,19 @@
                 "cpus=4,cores=4",
                 "--kernel",
                 "${workspaceFolder}/linux/arch/x86_64/boot/bzImage",
+                // buildroot fs
+
+                // // "-initrd",
+                // // "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
+                // "-drive",
+                // "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
+
+                // debian rootfs
+
                 // "-initrd",
-                // "${workspaceFolder}/buildroot/output/images/rootfs.cpio.gz",
+                // "${workspaceFolder}/rootfs.cpio",
                 "-drive",
-                "file=${workspaceFolder}/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk",
+                "file=${workspaceFolder}/rootfs.ext4,format=raw,index=0,media=disk",
                 "-device",
                 "e1000,netdev=eth0",
                 "-netdev",
