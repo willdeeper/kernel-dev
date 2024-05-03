@@ -1,2 +1,2 @@
-/dev/sda / ext4 defaults 1 1
+/dev/sda / ext4 defaults 0 1
 proc /proc proc none 0 0
