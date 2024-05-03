@@ -4,6 +4,5 @@ iface lo inet loopback
 
 auto enp0s3
 iface enp0s3 inet dhcp
-  pre-up /etc/network/nfs_check
   wait-delay 15
   hostname $(hostname)
