@@ -49,8 +49,8 @@
                 // 如果不用initrd，直接挂在ext4的磁盘做rootfs，不需要配置内存
                 // 默认128MB足够
 
-                // "-m",
-                // "8G",
+                "-m",
+                "8G",
                 "-smp",
                 "cpus=4,cores=4",
                 "--kernel",
