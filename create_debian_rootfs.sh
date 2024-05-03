@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-FS=/mnt/ext4
+FS=/mnt/ext4/
 
 apt install debootstrap -y
 # create rootfs

@@ -96,7 +96,6 @@ buildroot/
 2. make savedefconfig
 3. `make` or `make linux-rebuild` (加上第二步一共编译两次kernel，幸好内核开发文件变动不频繁，所以linux/ 有compile_commands.json 后不需要经常编译)
 
-
 ## 生成 compile commands
 
 ```bash
