@@ -17,7 +17,7 @@ cp -rf debianrootfs/* $FS
 
 chroot $FS /bin/bash -c " \
 # setup in rootfs \
-printf "$PASSWD\n$PASSWD" | passwd root \
+printf "$PASSWD\\n$PASSWD\\n" | passwd root \
 exit \
 "
 umount $FS
