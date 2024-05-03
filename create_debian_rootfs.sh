@@ -15,9 +15,5 @@ mount -o loop rootfs.ext4 $FS
 debootstrap --arch amd64 sid $FS https://mirrors.tuna.tsinghua.edu.cn/debian
 cp -rf debianrootfs/* $FS
 
-chroot $FS /bin/bash -c " \
-# setup in rootfs \
-printf "$PASSWD\\n$PASSWD\\n" | passwd root \
-exit \
-"
+chroot $FS /bin/bash /root/rootfs_init.sh
 umount $FS
