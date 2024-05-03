@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 FS=/mnt/ext4/
-PASSWD="123456"
+PASSWD=123456
 apt install debootstrap -y
 # create rootfs
 # 1G
@@ -17,7 +17,7 @@ cp -rf debianrootfs/* $FS
 
 chroot $FS /bin/bash -c " \
 # setup in rootfs \
-printf "$PASSWD\n$PASSWD" | passwd root -R /mnt/ext4 \
+printf "$PASSWD\n$PASSWD" | passwd root \
 exit \
 "
 umount $FS
