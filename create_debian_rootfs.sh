@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 FS=/mnt/ext4/
-
+PASSWD="123456"
 apt install debootstrap -y
 # create rootfs
 # 1G
@@ -15,8 +15,9 @@ mount -o loop rootfs.ext4 $FS
 debootstrap --arch amd64 sid $FS https://mirrors.tuna.tsinghua.edu.cn/debian
 cp -rf debianrootfs/* $FS
 
-chroot $FS
-# setup in rootfs
-printf "123456\n123456" | passwd root -R /mnt/ext4
-exit
+chroot $FS /bin/bash -c " \
+# setup in rootfs \
+printf "$PASSWD\n$PASSWD" | passwd root -R /mnt/ext4 \
+exit \
+"
 umount $FS
