@@ -11,7 +11,7 @@ apt install wget curl libbpf-dev libelf-dev libssl-dev build-essential clang git
     libc6-dev-i386 libxdp-dev vim -y
 
 # rust
-curl https://sh.rustup.rs -sSf | sh -s -- -y
+curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 chsh -s /bin/bash
 
 # add path env

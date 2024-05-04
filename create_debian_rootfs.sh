@@ -23,4 +23,6 @@ mount --rbind /dev dev/
 mount --make-rslave sys/
 mount --make-rslave dev/
 chroot $FS /bin/bash /root/rootfs_init.sh
+# make umount happy
+cd ../
 umount -R $FS
