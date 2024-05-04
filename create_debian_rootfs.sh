@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-set -ex
-FS=/mnt/ext4/
+set -x
+FS=/mnt/ext4
 
 apt install debootstrap -y
 if [[ "$(mount | grep $FS)" != "" ]]; then
@@ -15,9 +15,12 @@ mkdir -p $FS
 mount -o loop rootfs.ext4 $FS
 debootstrap --arch amd64 sid $FS https://mirrors.tuna.tsinghua.edu.cn/debian
 cp -rf debianrootfs/* $FS
-# cd $FS
-# mount -t proc /proc proc/
-# mount --rbind /sys sys/
-# mount --rbind /dev dev/
+cd $FS
+mount -t proc /proc proc/
+mount --rbind /sys sys/
+mount --rbind /dev dev/
+# https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
+mount --make-rslave sys/
+mount --make-rslave dev/
 chroot $FS /bin/bash /root/rootfs_init.sh
-umount $FS
+umount -R $FS
