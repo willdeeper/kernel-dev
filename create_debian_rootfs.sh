@@ -15,6 +15,9 @@ mkdir -p $FS
 mount -o loop rootfs.ext4 $FS
 debootstrap --arch amd64 sid $FS https://mirrors.tuna.tsinghua.edu.cn/debian
 cp -rf debianrootfs/* $FS
-
+# cd $FS
+# mount -t proc /proc proc/
+# mount --rbind /sys sys/
+# mount --rbind /dev dev/
 chroot $FS /bin/bash /root/rootfs_init.sh
 umount $FS
