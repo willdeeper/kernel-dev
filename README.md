@@ -16,11 +16,6 @@ clean之后再编译报错就没了
 
 配透明代理保险些
 
-### TODO
-
-[] 使用 ext4 rootfs文件系统
-[] kernel boot时执行脚本，自动化配置wifi 或者其他的环境
-
 ## 开发流程
 
 **vscode C++ 插件难用，建议编译kernel加`CC=clang`，配合vscode clangd**
@@ -102,7 +97,7 @@ buildroot/
 bash -c 'cd linux && ./scripts/clang-tools/gen_compile_commands.py'
 ```
 
-# 编译内核
+## 编译内核
 
 buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom`。在 linux/ 修改后 make 并不会复用上次的编译缓存
 
@@ -153,6 +148,16 @@ buildroot用 `rsync` 将 `linux/` 同步到 `buildroot/output/build/linux-custom
     ```bash
     ssh root@127.0.0.1 -p 5555 
     ```
+
+## 构建debian rootfs
+
+buildroot推荐跨平台编译，[不提供编译器等二进制](https://buildroot.org/downloads/manual/manual.html#:~:text=Buildroot%20is%20not%20meant%20to%20be%20a%20distribution%20(or%20rather%2C%20a%20distribution%20generator.))
+
+某些场景希望在自己的内核开发，编译代码。buildroot的能力无法满足需求。解决办法是构建debian rootfs，用自己的内核运行，可以获得熟悉的debian开发环境，apt安装依赖
+
+```bash
+./create_debian_rootfs.sh
+```
 
 ## FAQ
 
@@ -233,7 +238,6 @@ tmux -f /root/.config/tmux/tmux.conf
 ctrl-a+ctrl+a \
 ctrl-a+ctrl+a -
 ```
-
 
 #### move between pane
 
