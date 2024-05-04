@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
 FS=/mnt/ext4
 
 apt install debootstrap -y
