@@ -27,7 +27,7 @@ clean之后再编译报错就没了
 ### presetup
 
 ```bash
-sudo apt install make gcc flex bison clang libelf-dev bc libssl-dev rsync pahole qemu-system-x86 -y
+sudo apt install make gcc flex bison clang libelf-dev bc libssl-dev rsync pahole qemu-system-x86 e2fsprogs debootstrap -y
 sudo git submodule update --init --remote --recursive
 sudo git submodule foreach "git reset --hard HEAD && git checkout -b _tmp && git branch -D master && git checkout -b master origin/master && git branch -D _tmp"
 ```
