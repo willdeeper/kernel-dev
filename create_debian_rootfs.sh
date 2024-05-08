@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 FS=/mnt/ext4
-if [ "`id -u`" -ne 0 ]; then
+if [[ "`id -u`" -ne 0 ]]; then
     echo "Switching from `id -un` to root"
     exec sudo "$0"
     exit 99
@@ -29,7 +29,7 @@ mount --rbind /dev dev/
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
-chroot $FS /bin/bash /root/rootfs_init.sh
+chroot $FS /bin/bash /root/.rootfs_init.sh
 # make umount happy
 cd ../
 umount -R $FS

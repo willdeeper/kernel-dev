@@ -21,5 +21,4 @@ export PATH=$PATH:~/.cargo/bin
 EOF
 source ~/.bashrc
 cargo install bpf-linker
-
-exit
+exit 0
