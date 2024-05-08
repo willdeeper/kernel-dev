@@ -3,13 +3,16 @@
 	url = https://github.com/taikulawo/buildroot
 	branch = master
 	ignore = dirty
+	shallow = true
 [submodule "linux"]
 	path = linux
 	url = https://github.com/taikulawo/linux
 	branch = master
 	ignore = dirty
+	shallow = true
 [submodule "u-boot"]
 	path = u-boot
 	url = https://github.com/taikulawo/u-boot
 	branch = master
 	ignore = dirty
+	shallow = true
