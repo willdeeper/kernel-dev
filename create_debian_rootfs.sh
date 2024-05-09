@@ -10,6 +10,7 @@ apt install debootstrap -y
 if [[ "$(mount | grep $FS)" != "" ]]; then
     umount $FS
 fi
+# . ./scripts/create_bootable_img.sh
 # create rootfs
 # 10G
 dd if=/dev/zero of=rootfs.ext4 bs=1M count=10480
@@ -34,4 +35,3 @@ chroot $FS /bin/bash /root/.rootfs_init.sh
 cd ../
 umount -R $FS
 
-# . ./create_bootable_img.sh
