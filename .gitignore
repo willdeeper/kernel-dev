@@ -1,2 +1,4 @@
 .cache
 rootfs.ext4
+efi.fat32
+disk.img
