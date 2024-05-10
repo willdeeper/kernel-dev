@@ -52,7 +52,7 @@ chroot $FS /bin/bash /root/.rootfs_init.sh
 # make umount happy
 cd ../
 umount -R $FS
-
+cd $PWD
 # 最后生成 bootable image
 ROOTPATH_TMP="$(mktemp -d)"
 genimage --rootpath "$ROOTPATH_TMP" --inputpath "$PWD" --outputpath "$PWD" --config ./scripts/genimage-efi.cfg
