@@ -40,7 +40,10 @@ mkdir -p boot/efi
 
 # install grub on /boot and /boot/efi
 
-
+install_grub() {
+    grub-install --target="$(arch)-efi" --efi-directory=boot/efi --bootloader-id=GRUB --boot-directory=boot/
+    grub-mkconfig -o boot/grub/grub.cfg
+}
 mount -t proc /proc proc/
 mount --rbind /sys sys/
 mount --rbind /dev dev/
@@ -48,6 +51,7 @@ mount "$PWD/efi.fat32" boot/efi
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
+install_grub
 chroot $FS /bin/bash /root/.rootfs_init.sh
 # make umount happy
 cd ../
