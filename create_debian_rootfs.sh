@@ -42,7 +42,7 @@ mkdir -p boot/efi
 
 install_grub() {
     grub-install --target="$(arch)-efi" --efi-directory=boot/efi --bootloader-id=GRUB --boot-directory=boot/
-    grub-mkconfig -o boot/grub/grub.cfg
+    grub-mkconfig -o /boot/grub/grub.cfg
 }
 mount -t proc /proc proc/
 mount --rbind /sys sys/
