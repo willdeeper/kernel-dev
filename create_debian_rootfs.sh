@@ -37,14 +37,30 @@ cd $FS
 # 创建efi文件夹，为之后efi分区挂载做准备
 mkdir -p boot/efi
 
-# copy linuz, System.map .config, initrd into /boot
+# 如何生成vmlinuz?
+# https://www.linfo.org/vmlinuz.html
+# https://unix.stackexchange.com/questions/38773/vmlinuz-and-initrd-not-found-after-building-the-kernel
+# https://tldp.org/LDP/lame/LAME/linux-admin-made-easy/kernel-custom.html
+
+# copy vmlinuz, System.map .config, initrd into /boot
+install_kernel() {
+    # https://packages.debian.org/sid/amd64/linux-image-6.8.9-amd64/filelist
+    # 看 debian linux-image 包内容，/boot 下只有
+    # /boot/System.map-6.8.9-amd64
+    # /boot/config-6.8.9-amd64
+    # /boot/vmlinuz-6.8.9-amd64
+    # 按照包结构复制到/boot
+    # https://sources.debian.org/src/linux-signed-amd64/6.8.9%2B1/debian/rules.real/
+    # 再call grub 生成bootloader
+    # https://gist.github.com/superboum/1c7adcd967d3e15dfbd30d04b9ae6144
+}
 
 # install grub on /boot and /boot/efi
-
 install_grub() {
     grub-install --target="$(arch)-efi" --efi-directory=boot/efi --bootloader-id=GRUB --boot-directory=boot/
     grub-mkconfig -o /boot/grub/grub.cfg
 }
+
 mount -t proc /proc proc/
 mount --rbind /sys sys/
 mount --rbind /dev dev/
