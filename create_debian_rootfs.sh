@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # 只在 x86-64 测试通过
+set -e
 FS=/mnt/ext4
 PWD=$(pwd)
 if [[ "`id -u`" -ne 0 ]]; then
@@ -51,7 +52,7 @@ mount "$PWD/efi.fat32" boot/efi
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
-install_grub
+# install_grub
 chroot $FS /bin/bash /root/.rootfs_init.sh
 # make umount happy
 cd ../
