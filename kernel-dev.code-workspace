@@ -11,13 +11,7 @@
         },
         {
             "path": "."
-        },
-    ],
-    "settings": {
-        "files.associations": {
-            "nospec.h": "c",
-            "sock.h": "c",
-            "init_syscalls.h": "c"
         }
-    }
+    ],
+    "settings": {}
 }
