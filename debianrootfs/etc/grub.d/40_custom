@@ -1,0 +1,4 @@
+menuentry "Debian" {
+	linux /boot/vmlinuz
+	initrd /boot/initrd.img
+}
