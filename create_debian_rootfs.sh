@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 只在 x86-64 测试通过
-set -e
+set -ex
 FS=/mnt/ext4
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [[ "`id -u`" -ne 0 ]]; then
