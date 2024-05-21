@@ -2,7 +2,7 @@
 # 只在 x86-64 测试通过
 set -e
 FS=/mnt/ext4
-PWD=$(pwd)
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [[ "`id -u`" -ne 0 ]]; then
     echo "Switching from `id -un` to root"
     exec sudo "$0"
@@ -53,6 +53,10 @@ install_kernel() {
     # https://sources.debian.org/src/linux-signed-amd64/6.8.9%2B1/debian/rules.real/
     # 再call grub 生成bootloader
     # https://gist.github.com/superboum/1c7adcd967d3e15dfbd30d04b9ae6144
+    cd $ROOT
+    cp linux/System.map boot/System.map
+    cp linux/.config boot/config
+    cp linux/arch/$(arch)/boot/bzImage boot/vmlinuz
 }
 
 # install grub on /boot and /boot/efi
@@ -64,17 +68,17 @@ install_grub() {
 mount -t proc /proc proc/
 mount --rbind /sys sys/
 mount --rbind /dev dev/
-mount "$PWD/efi.fat32" boot/efi
+mount "$ROOT/efi.fat32" boot/efi
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
-# install_grub
+install_grub
 chroot $FS /bin/bash /root/.rootfs_init.sh
 # make umount happy
 cd ../
 umount -R $FS
-cd $PWD
+cd $ROOT
 # 最后生成 bootable image
 ROOTPATH_TMP="$(mktemp -d)"
-genimage --rootpath "$ROOTPATH_TMP" --inputpath "$PWD" --outputpath "$PWD" --config ./scripts/genimage-efi.cfg
+genimage --rootpath "$ROOTPATH_TMP" --inputpath "$ROOT" --outputpath "$ROOT" --config ./scripts/genimage-efi.cfg
 

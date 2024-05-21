@@ -17,7 +17,6 @@ apt-file update
 # rust
 curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 chsh -s /bin/bash
-install_grub
 # add path env
 cat << EOF >> ~/.bashrc
 export PATH=$PATH:~/.cargo/bin
