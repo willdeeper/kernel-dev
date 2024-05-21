@@ -60,7 +60,8 @@ install_kernel() {
 }
 
 # install grub on /boot and /boot/efi
-install_grub() {
+install_grub_efi() {
+    cd $FS
     grub-install --target="$(arch)-efi" --efi-directory=boot/efi --bootloader-id=GRUB --boot-directory=boot/
     grub-mkconfig -o /boot/grub/grub.cfg
 }
@@ -72,12 +73,12 @@ mount "$ROOT/efi.fat32" boot/efi
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
-install_grub
+install_kernel
+install_grub_efi
 chroot $FS /bin/bash /root/.rootfs_init.sh
-# make umount happy
-cd ../
-umount -R $FS
 cd $ROOT
+# make umount happy
+umount -R $FS
 # 最后生成 bootable image
 ROOTPATH_TMP="$(mktemp -d)"
 genimage --rootpath "$ROOTPATH_TMP" --inputpath "$ROOT" --outputpath "$ROOT" --config ./scripts/genimage-efi.cfg
