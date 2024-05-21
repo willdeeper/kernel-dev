@@ -53,10 +53,10 @@ install_kernel() {
     # https://sources.debian.org/src/linux-signed-amd64/6.8.9%2B1/debian/rules.real/
     # 再call grub 生成bootloader
     # https://gist.github.com/superboum/1c7adcd967d3e15dfbd30d04b9ae6144
-    cd $ROOT
-    cp linux/System.map boot/System.map
-    cp linux/.config boot/config
-    cp linux/arch/$(arch)/boot/bzImage boot/vmlinuz
+    cd $FS
+    cp $ROOT/linux/System.map boot/System.map
+    cp $ROOT/linux/.config boot/config
+    cp $ROOT/linux/arch/$(arch)/boot/bzImage boot/vmlinuz
 }
 
 # install grub on /boot and /boot/efi
