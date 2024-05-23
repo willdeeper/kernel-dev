@@ -12,13 +12,15 @@ apt install debootstrap -y
 if [[ "$(mount | grep $FS)" != "" ]]; then
     umount $FS
 fi
-
+ARCH=$(dpkg --print-architecture)
 # create rootfs
 # 10G
 dd if=/dev/zero of=rootfs.ext4 bs=1M count=10480
 mkfs.ext4 rootfs.ext4
 
 # create efi
+# 参考archlinux安装文档
+# https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
 dd if=/dev/zero of=efi.fat32 bs=1M count=1024
 mkfs.vfat -F 32 efi.fat32
 
@@ -53,18 +55,26 @@ install_kernel() {
     # https://sources.debian.org/src/linux-signed-amd64/6.8.9%2B1/debian/rules.real/
     # 再call grub 生成bootloader
     # https://gist.github.com/superboum/1c7adcd967d3e15dfbd30d04b9ae6144
+    local version=$(make kernelversion -C $ROOT/linux --no-print-directory)
+    local suffix=$version-$ARCH
     cd $FS
-    cp $ROOT/linux/System.map boot/System.map
-    cp $ROOT/linux/.config boot/config
-    cp $ROOT/linux/arch/$(arch)/boot/bzImage boot/vmlinuz
+    cp $ROOT/linux/System.map boot/System.map-$suffix
+    cp $ROOT/linux/.config boot/config-$suffix
+    cp $ROOT/linux/arch/$(arch)/boot/bzImage boot/vmlinuz-$suffix
+    # copy kernel modules.builtin.modinfo modules.order modules.builtin
+    cp $ROOT/linux/modules.builtin.modinfo lib/modules/$suffix/modules.builtin.modinfo
+    cp $ROOT/linux/modules.order lib/modules/$suffix/modules.order
+    cp $ROOT/linux/modules.builtin lib/modules/$suffix/modules.builtin
+    # create initrd.img
+    update-initramfs -c -k $suffix
 }
 
 # install grub on /boot and /boot/efi
 install_grub_efi() {
+    # https://wiki.archlinux.org/title/GRUB#Generated_grub.cfg
     cd $FS
     grub-install --target="$(arch)-efi" --efi-directory=boot/efi --bootloader-id=GRUB --boot-directory=boot/
-    grub-mkconfig -o /boot/grub/grub.cfg
-    update-grub
+    grub-mkconfig -o boot/grub/grub.cfg
 }
 
 mount -t proc /proc proc/
