@@ -10,7 +10,7 @@ if [[ "`id -u`" -ne 0 ]]; then
 fi
 apt install debootstrap -y
 if [[ "$(mount | grep $FS)" != "" ]]; then
-    umount $FS
+    umount -l  $FS
 fi
 ARCH=$(dpkg --print-architecture)
 # create rootfs
@@ -62,6 +62,7 @@ install_kernel() {
     cp $ROOT/linux/.config boot/config-$suffix
     cp $ROOT/linux/arch/$(arch)/boot/bzImage boot/vmlinuz-$suffix
     # copy kernel modules.builtin.modinfo modules.order modules.builtin
+    mkdir -p lib/modules/$suffix/
     cp $ROOT/linux/modules.builtin.modinfo lib/modules/$suffix/modules.builtin.modinfo
     cp $ROOT/linux/modules.order lib/modules/$suffix/modules.order
     cp $ROOT/linux/modules.builtin lib/modules/$suffix/modules.builtin
