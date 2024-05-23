@@ -67,7 +67,7 @@ install_kernel() {
     cp $ROOT/linux/modules.order lib/modules/$suffix/modules.order
     cp $ROOT/linux/modules.builtin lib/modules/$suffix/modules.builtin
     # create initrd.img
-    update-initramfs -c -k $suffix -b boot/
+    update-initramfs -c -k $suffix -b boot
 }
 
 # install grub on /boot and /boot/efi
