@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # setup in rootfs
-
-PASSWD=123456
+set -ex
 
 echo -e "$PASSWD\n$PASSWD\n" | passwd root
 
-apt-get update
-apt install wget curl libbpf-dev libelf-dev libssl-dev build-essential clang git bpftool \
+apt update
+apt-get install wget curl libbpf-dev libelf-dev libssl-dev build-essential clang git bpftool \
     linux-perf pkg-config tcpdump llvm automake m4 autoconf libpcap-dev openssh-server \
     libc6-dev-i386 libxdp-dev vim apt-file sudo locales tmux net-tools file netcat-openbsd \
-    man-db grub2-common grub-efi -y
+    man-db grub2-common grub-efi initramfs-tools -y \
+    -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
 ARCH=$(dpkg --print-architecture)
 # apt install linux-image-$ARCH -y
 # create initrd.img

@@ -2,7 +2,11 @@
 # 只在 x86-64 测试通过
 set -ex
 FS=/mnt/ext4
+PASSWD=123456
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+kernel_version=$(make kernelversion -C $ROOT/linux --no-print-directory)
+ARCH=$(dpkg --print-architecture)
+suffix=$kernel_version-$ARCH
 if [[ "`id -u`" -ne 0 ]]; then
     echo "Switching from `id -un` to root"
     exec sudo "$0"
@@ -12,7 +16,6 @@ apt install debootstrap -y
 if [[ "$(mount | grep $FS)" != "" ]]; then
     umount -l  $FS
 fi
-ARCH=$(dpkg --print-architecture)
 # create rootfs
 # 10G
 dd if=/dev/zero of=rootfs.ext4 bs=1M count=10480
@@ -31,7 +34,7 @@ mount -o loop rootfs.ext4 $FS
 # 除非高版本内核删除了一些驱动，否则高版本内核一直兼容低libc
 # 所以用debian 12制作 rootfs，kernel版本随便升级。等用多少年之后再升级到最新debian stable，循环往复
 # debootstrap --arch amd64 sid $FS https://mirrors.tuna.tsinghua.edu.cn/debian
-debootstrap --components=main,contrib,non-free-firmware --arch amd64 bookworm $FS https://mirrors.tuna.tsinghua.edu.cn/debian
+debootstrap --components=main,contrib,non-free-firmware --arch $ARCH bookworm $FS https://mirrors.tuna.tsinghua.edu.cn/debian
 
 cp -rf debianrootfs/* $FS
 
@@ -55,8 +58,6 @@ install_kernel() {
     # https://sources.debian.org/src/linux-signed-amd64/6.8.9%2B1/debian/rules.real/
     # 再call grub 生成bootloader
     # https://gist.github.com/superboum/1c7adcd967d3e15dfbd30d04b9ae6144
-    local version=$(make kernelversion -C $ROOT/linux --no-print-directory)
-    local suffix=$version-$ARCH
     cd $FS
     cp $ROOT/linux/System.map boot/System.map-$suffix
     cp $ROOT/linux/.config boot/config-$suffix
@@ -85,7 +86,7 @@ mount --make-rslave sys/
 mount --make-rslave dev/
 install_kernel
 install_grub_efi
-suffix="$suffix" chroot $FS /bin/bash /root/.rootfs_init.sh
+suffix="$suffix" PASSWD="$PASSWD" chroot $FS /bin/bash /root/.rootfs_init.sh
 cd $ROOT
 # make umount happy
 umount -R $FS

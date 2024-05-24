@@ -1,4 +1,4 @@
 menuentry "Debian" {
-	linux /boot/vmlinuz
-	initrd /boot/initrd.img
+	linux /boot/vmlinuz-6.6.5-amd64
+	initrd /boot/initrd.img-6.6.5-amd64
 }
