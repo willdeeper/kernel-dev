@@ -66,8 +66,6 @@ install_kernel() {
     cp $ROOT/linux/modules.builtin.modinfo lib/modules/$suffix/modules.builtin.modinfo
     cp $ROOT/linux/modules.order lib/modules/$suffix/modules.order
     cp $ROOT/linux/modules.builtin lib/modules/$suffix/modules.builtin
-    # create initrd.img
-    update-initramfs -c -k $suffix -b boot
 }
 
 # install grub on /boot and /boot/efi
@@ -87,7 +85,7 @@ mount --make-rslave sys/
 mount --make-rslave dev/
 install_kernel
 install_grub_efi
-chroot $FS /bin/bash /root/.rootfs_init.sh
+suffix="$suffix" chroot $FS /bin/bash /root/.rootfs_init.sh
 cd $ROOT
 # make umount happy
 umount -R $FS
