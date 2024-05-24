@@ -28,7 +28,7 @@ clean之后再编译报错就没了
 
 ```bash
 sudo apt install make gcc flex bison clang libelf-dev bc libssl-dev \
-rsync pahole qemu-system-x86 e2fsprogs debootstrap genimage dosfstools grub2-common grub-efi -y
+rsync pahole qemu-system-x86 e2fsprogs debootstrap genimage dosfstools grub2-common grub-efi ovmf -y
 sudo git submodule update --init --remote --recursive
 sudo git submodule foreach "git reset --hard HEAD && git checkout -b _tmp && git branch -D master && git checkout -b master origin/master && git branch -D _tmp"
 ```
@@ -158,7 +158,11 @@ buildroot推荐跨平台编译，[不提供编译器等二进制](https://buildr
 ```bash
 ./create_debian_rootfs.sh
 ```
+### qemu uefi boot
 
+```bash
+qemu-system-x86_64 -bios /usr/share/ovmf/OVMF.fd -drive format=raw,file=disk.img
+```
 ## FAQ
 
 ### 修改 linux 的.config
