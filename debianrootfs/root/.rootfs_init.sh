@@ -11,7 +11,7 @@ apt-get install wget curl libbpf-dev libelf-dev libssl-dev build-essential clang
     man-db grub2-common grub-efi initramfs-tools -y \
     -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
 ARCH=$(dpkg --print-architecture)
-# apt install linux-image-$ARCH -y
+apt install linux-image-$ARCH -y
 # create initrd.img
 update-initramfs -c -k $suffix
 # rust

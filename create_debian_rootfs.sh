@@ -84,8 +84,8 @@ mount "$ROOT/efi.fat32" boot/efi
 # https://unix.stackexchange.com/questions/362870/unmount-sys-fs-cgroup-systemd-after-chroot-without-rebooting
 mount --make-rslave sys/
 mount --make-rslave dev/
-install_kernel
 install_grub_efi
+install_kernel
 suffix="$suffix" PASSWD="$PASSWD" chroot $FS /bin/bash /root/.rootfs_init.sh
 cd $ROOT
 # make umount happy
